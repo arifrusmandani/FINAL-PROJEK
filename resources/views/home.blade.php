@@ -8,15 +8,15 @@
 						<h2>Welcome to Ask me</h2>
 						<p>Duis dapibus aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit quis urna adipiscing iaculis. Curabitur vitae velit in neque dictum blandit. Proin in iaculis neque.</p>
 						<div class="clearfix"></div>
-						<a class="color button dark_button medium" href="#">About Us</a>
-						<a class="color button dark_button medium" href="#">Join Now</a>
+						<a class="color button dark_button medium" href="/contact_us">About Us</a>
+						<a class="color button dark_button medium" href="/login">Join Now</a>
 					</div>
 					<div class="col-md-9">
 						<form class="form-style form-style-2">
 							<p>
 								<textarea rows="4" id="question_title" onfocus="if(this.value=='Ask any question and you be sure find your answer ?')this.value='';" onblur="if(this.value=='')this.value='Ask any question and you be sure find your answer ?';">Ask any question and you be sure find your answer ?</textarea>
 								<i class="icon-pencil"></i>
-								<span class="color button small publish-question">Ask Now</span>
+								<span class="color button small publish-question"><a href="/pertanyaan/create">Ask Now</a></span>
 							</p>
 						</form>
 					</div>
@@ -194,46 +194,6 @@
 					</div>
 		        </div><!-- End page-content -->
 			</div><!-- End main -->
-			<aside class="col-md-3 sidebar">
-				<div class="widget widget_stats">
-					<h3 class="widget_title">Stats</h3>
-					<div class="ul_list ul_list-icon-ok">
-						<ul>
-							<li><i class="icon-question-sign"></i>Questions ( <span>20</span> )</li>
-							<li><i class="icon-comment"></i>Answers ( <span>50</span> )</li>
-						</ul>
-					</div>
-				</div>
-				
-				
-				<div class="widget widget_tag_cloud">
-					<h3 class="widget_title">Tags</h3>
-					<a href="#">projects</a>
-					<a href="#">Portfolio</a>
-					<a href="#">Wordpress</a>
-					<a href="#">Html</a>
-					<a href="#">Css</a>
-					<a href="#">jQuery</a>
-					<a href="#">2code</a>
-					<a href="#">vbegy</a>
-				</div>
-				
-				<div class="widget">
-					<h3 class="widget_title">Recent Questions</h3>
-					<ul class="related-posts">
-						<li class="related-item">
-							<h3><a href="#">This is my first Question</a></h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-							<div class="clear"></div><span>Feb 22, 2014</span>
-						</li>
-						<li class="related-item">
-							<h3><a href="#">This Is My Second Poll Question</a></h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-							<div class="clear"></div><span>Feb 22, 2014</span>
-						</li>
-					</ul>
-				</div>
-				
-			</aside><!-- End sidebar -->
+@include('layouts.aside')
 		</div><!-- End row -->
 @endsection
