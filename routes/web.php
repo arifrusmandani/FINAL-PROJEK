@@ -15,9 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('public.home');
-});
+Route::get('/home', 'PertanyaanController@home');
 Route::get('/login', function () {
     return view('public.login');
 });
