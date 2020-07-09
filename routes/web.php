@@ -16,13 +16,13 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-    return view('home');
+    return view('public.home');
 });
 Route::get('/login', function () {
-    return view('login');
+    return view('public.login');
 });
 Route::get('/contact_us', function () {
-    return view('contact');
+    return view('public.contact');
 });
 
 Route::resource('pertanyaan','PertanyaanController');
