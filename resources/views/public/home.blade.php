@@ -40,7 +40,7 @@
 						@foreach($pertanyaan as $row)
 							<article class="question question-type-normal">
 								<h2>
-									<a href="single_question.html">{{$row->judul}}</a>
+									<a href="/pertanyaan/{{$row->id}}">{{$row->judul}}</a>
 								</h2>
 								<a class="question-type-main"><i class="icon-question-sign"></i>Question</a>
 								<div class="question-author">
@@ -48,7 +48,7 @@
 								</div>
 								<div class="question-inner">
 									<div class="clearfix"></div>
-									<p class="question-desc">{{$row->isi}}
+									<p class="question-desc">{{substr($row->isi, 0,300)}}...
 									</p>
 
 									<div class="row">
@@ -57,7 +57,7 @@
 										<span class="question-answered question-answered-done"><i class="icon-ok"></i>solved</span>
 									</div>
 									<span class="question-date"><i class="icon-time"></i>{{$row->created_at}}</span>
-									<span class="question-comment"><a href="#"><i class="icon-comment"></i>5 Answer</a></span>
+									<span class="question-comment"><a href="/pertanyaan/{{$row->id}}"><i class="icon-comment"></i>5 Answer</a></span>
 										</div>
 										<div class="col-md-6" align="right">
 											<div class="widget_tag_cloud">

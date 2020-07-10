@@ -9,6 +9,11 @@ class Pertanyaan extends Model
     protected $table = "pertanyaan";
     protected $guarded = [];
 
+    public function user()
+    {
+    	return $this->belongsTo('App\User','penanya_id');
+    }
+
     public function tags()
     {
     	return $this->belongsToMany('App\Tag','pertanyaan_tag','pertanyaan_id','tag_id');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Pertanyaan;
 use App\Tag;
+use Auth;
 
 class PertanyaanController extends Controller
 {
@@ -20,7 +21,7 @@ class PertanyaanController extends Controller
 
     public function home()
     {
-        $pertanyaan = Pertanyaan::all();
+        $pertanyaan = Pertanyaan::orderByDesc('created_at')->get();
         return view('public.home', compact('pertanyaan'));
     }
 
@@ -45,7 +46,7 @@ class PertanyaanController extends Controller
         $data = array(
             'judul' => $request->judul,
             'isi' => $request->isi,
-            'penanya_id' => 1
+            'penanya_id' => Auth::user()->id
         );
 
         $new_pertanyaan = Pertanyaan::create($data);
@@ -62,7 +63,7 @@ class PertanyaanController extends Controller
             $new_pertanyaan->tags()->attach($tag->id);
         }
 
-        return view('public.home');
+        return redirect('/');
 
     }
 
@@ -74,7 +75,8 @@ class PertanyaanController extends Controller
      */
     public function show($id)
     {
-        //
+        $pertanyaan = Pertanyaan::find($id);
+        return view('pertanyaan.show',compact('pertanyaan'));
     }
 
     /**

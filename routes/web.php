@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/home', 'PertanyaanController@home');
+Route::get('/', 'PertanyaanController@home');
 Route::get('/login', function () {
     return view('public.login');
 });
@@ -23,4 +23,11 @@ Route::get('/contact_us', function () {
     return view('public.contact');
 });
 
-Route::resource('pertanyaan','PertanyaanController');
+route::group(['middleware' => 'auth'], function(){
+	Route::resource('pertanyaan','PertanyaanController');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('logout', 'Auth\LoginController@logout');

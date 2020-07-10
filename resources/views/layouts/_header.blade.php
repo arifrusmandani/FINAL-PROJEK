@@ -100,7 +100,12 @@
 				<ul>
 					<li><a href="contact_us.html"><i class="icon-envelope"></i>Contact</a></li>
 					<li><a href="#"><i class="icon-headphones"></i>Support</a></li>
+					@if(isset(Auth::user()->name))
+					<li><a href="#"><i class="icon-user"></i>{{Auth::user()->name}}</a></li>
+					<li><a href="/logout"><i class="icon-user"></i>Logout</a></li>
+					@else
 					<li><a href="login.html" id="login-panel"><i class="icon-user"></i>Login Area</a></li>
+					@endif
 				</ul>
 			</nav>
 			<div class="header-search">
