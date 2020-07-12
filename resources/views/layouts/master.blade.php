@@ -13,6 +13,7 @@
 	
 	<!-- Main Style -->
 	<link rel="stylesheet" href="{{asset('askme/style.css')}}">
+	<link rel="stylesheet" href="{{asset('askme/css/custom.css')}}">
 	
 	<!-- Skins -->
 	<link rel="stylesheet" href="{{asset('askme/css/skins/skins.css')}}">

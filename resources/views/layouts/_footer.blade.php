@@ -4,20 +4,17 @@
 				<div class="col-md-4">
 					<div class="widget widget_contact">
 						<h3 class="widget_title">Where We Are ?</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravida odio, sit amet suscipit risus ultrices eu.</p>
+						<p>Kami hanya seorang manusia biasa yang penuh kesalahan dan dosa. Mohon maaf jika banyak kekurangan dalam web ini.</p>
 						<ul>
 							<li>
 								<span>Address :</span>
-								Ask Me Network, 33 Street, syada Zeinab, Cairo, Egypt.
+								Dibawah langit, Diatas bumi bulat yang sedang berputar
 							</li>
-							<li>
-								<span>Support :</span>Support Telephone No : (+2)01111011110
-							</li>
-							<li>Support Email Account : info@example.com</li>
+							<li>Support Email Account : tanya@google.com</li>
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-4">
 					<div class="widget">
 						<h3 class="widget_title">Quick Links</h3>
 						<ul>
@@ -25,16 +22,10 @@
 							<li><a href="ask_question.html">Ask Question</a></li>
 							<li><a href="#">About</a></li>
 							<li><a href="cat_question.html">Questions</a></li>
-							<li><a href="user_profile.html">Users</a></li>
-							<li><a href="blog_1.html">Blog</a></li>
-							<li><a href="right_sidebar.html">Pages</a></li>
-							<li><a href="shortcodes.html">Shortcodes</a></li>
-							<li><a href="contact_us.html">Contact Us</a></li>
-							<li><a href="#">FAQs</a></li>
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-4">
 					<div class="widget">
 						<h3 class="widget_title">Popular Questions</h3>
 						<ul class="related-posts">
@@ -51,18 +42,12 @@
 						</ul>
 					</div>	
 				</div>
-				<div class="col-md-3">
-					<div class="widget widget_twitter">
-						<h3 class="widget_title">Latest Tweets</h3>
-						<div class="tweet_1"></div>
-					</div>
-				</div>
 			</div><!-- End row -->
 		</section><!-- End container -->
 	</footer><!-- End footer -->
 	<footer id="footer-bottom">
 		<section class="container">
-			<div class="copyrights f_left">Copyright 2020 | <a href="#">SanberCode Final Projek</a></div>
+			<div class="copyrights f_left">Copyright 2020 by Arif Rusmandani | <a href="#">SanberCode Final Projek</a></div>
 			<div class="social_icons f_right">
 				<ul>
 					<li class="twitter"><a original-title="Twitter" class="tooltip-n" href="#"><i class="social_icon-twitter font17"></i></a></li>

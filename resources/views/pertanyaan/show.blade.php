@@ -26,8 +26,6 @@
 					<h2>
 						<a href="single_question.html">{{$pertanyaan->judul}}</a>
 					</h2>
-					<a class="question-report" href="#">Report</a>
-					<div class="question-type-main"><i class="icon-question-sign"></i>Question</div>
 					<div class="question-inner">
 						<div class="clearfix"></div>
 						<div class="question-desc">
@@ -36,12 +34,12 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="question-details">
-							<span class="question-answered question-answered-done"><i class="icon-ok"></i>solved</span>
+								<span class="question-answered"><i class="icon-ok"></i>in progress</span>
 						</div>
-						<span class="question-date"><i class="icon-time"></i>{{$pertanyaan->created_at}}</span>
-						<span class="question-comment"><a href="#"><i class="icon-comment"></i>5 Answer</a></span>
+						<span class="question-date"><i class="icon-time"></i>{{$pertanyaan->created_at->format('d-M-Y H:i')}}</span>
+						<span class="question-comment"><a href="#"><i class="icon-comment"></i>{{count($pertanyaan->jawaban)}} Answer</a></span>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-4" align="right">
 								<div class="widget_tag_cloud">
 									@foreach($pertanyaan->tags as $tag)
 									<a href="#">{{$tag->tag_name}}</a>
@@ -73,29 +71,51 @@
 				</div><!-- End about-author -->
 				
 				<div id="respond" class="comment-respond about-author page-content clearfix">
-				    <div class="boxedtitle page-title"><h2>Leave a reply</h2></div>
-				    <form action="#" method="post" id="commentform" class="comment-form">
+				    <div class="boxedtitle page-title"><h2>Leave a comment</h2></div>
+				    <form action="/komentar/{{$pertanyaan->id}}" method="post" id="commentform" class="comment-form">
+				    	@csrf
 				        <div id="respond-textarea">
 				            <p>
 				                <label class="required" for="comment">Comment<span>*</span></label>
-				                <textarea id="comment" name="comment" aria-required="true" cols="58" rows="8"></textarea>
+				                <textarea id="comment" name="komentar_pertanyaan" aria-required="true" cols="58" rows="1" required></textarea>
 				            </p>
 				        </div>
 				        <p class="form-submit">
-				        	<input name="submit" type="submit" id="submit" value="Post your answer" class="button small color">
+				        	<input name="submit" type="submit" id="submit" value="Post comment" class="button small color">
 				        </p>
 				    </form>
 				</div>
+
+				<div id="respond" class="comment-respond about-author page-content clearfix">
+				    <div class="boxedtitle page-title"><h2>Leave a answer</h2></div>
+				    <form action="/jawaban/{{$pertanyaan->id}}" method="post" id="commentform" class="comment-form">
+				    	@csrf
+				        <div id="respond-textarea">
+				            <p>
+				                <label class="required" for="comment">Answer<span>*</span></label>
+				                <textarea id="comment" name="jawaban" aria-required="true" cols="58" rows="8" required></textarea>
+				            </p>
+				        </div>
+				        <p class="form-submit">
+				        	<input name="submit" type="submit" id="submit" value="Post answer" class="button small color">
+				        </p>
+				    </form>
+				</div>
+
+
 				
 				<div id="commentlist" class="page-content">
-					<div class="boxedtitle page-title"><h2>Answers ( <span class="color">5</span> )</h2></div>
+
+					<div class="boxedtitle page-title"><h2>List Answers ( <span class="color">{{count($pertanyaan->jawaban)}}</span> )</h2></div>
 					<ol class="commentlist clearfix">
+
+					@foreach($pertanyaan->jawaban as $jawaban)
 					    <li class="comment">
 					        <div class="comment-body comment-body-answered clearfix"> 
 					            <div class="avatar"><img alt="" src="../ask-me/images/demo/admin.jpg"></div>
 					            <div class="comment-text">
 					                <div class="author clearfix">
-					                	<div class="comment-author"><a href="#">admin</a></div>
+					                	<div class="comment-author"><a href="#">{{$jawaban->user->name}}</a></div>
 					                	<div class="comment-vote">
 						                	<ul class="question-vote">
 						                		<li><a href="#" class="question-vote-up" title="Like"></a></li>
@@ -104,22 +124,54 @@
 					                	</div>
 					                	<span class="question-vote-result">+1</span>
 					                	<div class="comment-meta">
-					                        <div class="date"><i class="icon-time"></i>January 15 , 2014 at 10:00 pm</div> 
+					                        <div class="date"><i class="icon-time"></i>{{$jawaban->created_at->format('d, M Y H:i')}} | 
+					                        	@if($jawaban->user->id == Auth::user()->id)
+					                        	<a href="/jawaban/{{$jawaban->id}}/edit"><i class="icon-edit"></i>Edit</a> | 
+					                        	<form action="/jawaban/{{$jawaban->id}}" method="post" style="display: inline;">
+							                     @csrf
+							                     @method('DELETE') 
+							                     <button type="submit">Delete</button>
+							                 	</form>
+							                 	@else
+							                 	@endif
+							                 </div> 
 					                    </div>
-					                    <a class="comment-reply" href="#"><i class="icon-reply"></i>Reply</a> 
 					                </div>
-					                <div class="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravida odio, sit amet suscipit risus ultrices eu. Fusce viverra neque at purus laoreet consequat. Vivamus vulputate posuere nisl quis consequat.</p>
+					                <div class="text"><p>{{$jawaban->isi}}</p>
 					                </div>
+					                @if($jawaban->is_selected == 0)
+					                @else
 									<div class="question-answered question-answered-done"><i class="icon-ok"></i>Best Answer</div>
+									@endif
+									<br>
+									<div class="clearfix"></div>
+									<form action="/komentar-jawaban/{{$jawaban->id}}" method="post" id="commentform" class="comment-form">
+				    				@csrf
+									<div class="row">
+										<div class="col-md-10">
+											<p>
+											<textarea name="komentar_jawaban" class="komentar" id="comment" cols="58" rows="10" required></textarea>
+												
+											</p>
+										</div>
+										<div class="col-md-2">
+											<button type="submit">Comment</button>
+										</div>
+									</div>
+									</form>
+
 					            </div>
+
 					        </div>
+							
+					    @foreach($jawaban->komentar as $komen)
 					        <ul class="children">
 					            <li class="comment">
 					                <div class="comment-body clearfix"> 
 					                	<div class="avatar"><img alt="" src="../ask-me/images/demo/avatar.png"></div>
 					                    <div class="comment-text">
 					                        <div class="author clearfix">
-					                        	<div class="comment-author"><a href="#">vbegy</a></div>
+					                        	<div class="comment-author"><a href="#">{{$komen->user->name}}</a></div>
 					                        	<div class="comment-vote">
 					                            	<ul class="question-vote">
 					                            		<li><a href="#" class="question-vote-up" title="Like"></a></li>
@@ -128,88 +180,72 @@
 					                        	</div>
 					                        	<span class="question-vote-result">+1</span>
 					                        	<div class="comment-meta">
-					                                <div class="date"><i class="icon-time"></i>January 15 , 2014 at 10:00 pm</div> 
+					                                <div class="date"><i class="icon-time"></i>{{$komen->created_at->format('d-M-Y H:i')}} | 
+					                                	@if($komen->user->id == Auth::user()->id)
+								                        	<form action="/komentar-jawaban/{{$komen->id}}" method="post" style="display: inline;">
+										                     @csrf
+										                     @method('DELETE') 
+										                     <button type="submit">Delete</button>
+										                 	</form>
+										                 	@else
+										                 	@endif
+					                                </div> 
 					                            </div>
-					                            <a class="comment-reply" href="#"><i class="icon-reply"></i>Reply</a> 
 					                        </div>
-					                        <div class="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravida odio, sit amet suscipit risus ultrices eu. Fusce viverra neque at purus laoreet consequat. Vivamus vulputate posuere nisl quis consequat.</p>
+					                        <div class="text"><p>{{$komen->isi}}</p>
 					                        </div>
 					                    </div>
 					                </div>
-					                <ul class="children">
-					                    <li class="comment">
-					                        <div class="comment-body clearfix"> 
-					                            <div class="avatar"><img alt="" src="../ask-me/images/demo/admin.jpg"></div>
-					                            <div class="comment-text">
-					                                <div class="author clearfix">
-					                                	<div class="comment-author"><a href="#">admin</a></div>
-					                                	<div class="comment-vote">
-					                                    	<ul class="question-vote">
-					                                    		<li><a href="#" class="question-vote-up" title="Like"></a></li>
-					                                    		<li><a href="#" class="question-vote-down" title="Dislike"></a></li>
-					                                    	</ul>
-					                                	</div>
-					                                	<span class="question-vote-result">+9</span>
-					                                	<div class="comment-meta">
-					                                        <div class="date"><i class="icon-time"></i>January 15 , 2014 at 10:00 pm</div> 
-					                                    </div>
-					                                    <a class="comment-reply" href="#"><i class="icon-reply"></i>Reply</a> 
-					                                </div>
-					                                <div class="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravida odio, sit amet suscipit risus ultrices eu. Fusce viverra neque at purus laoreet consequat. Vivamus vulputate posuere nisl quis consequat.</p>
-					                                </div>
-					                            </div>
-					                        </div>
-					                    </li>
-					                 </ul><!-- End children -->
+
 					            </li>
-					            <li class="comment">
-					            	<div class="comment-body clearfix"> 
-				                        <div class="avatar"><img alt="" src="../ask-me/images/demo/avatar.png"></div>
-				                        <div class="comment-text">
-				                            <div class="author clearfix">
-				                            	<div class="comment-author"><a href="#">ahmed</a></div>
-				                            	<div class="comment-vote">
-				                                	<ul class="question-vote">
-				                                		<li><a href="#" class="question-vote-up" title="Like"></a></li>
-				                                		<li><a href="#" class="question-vote-down" title="Dislike"></a></li>
-				                                	</ul>
-				                            	</div>
-				                            	<span class="question-vote-result">-3</span>
-				                            	<div class="comment-meta">
-				                                    <div class="date"><i class="icon-time"></i>January 15 , 2014 at 10:00 pm</div> 
-				                                </div>
-				                                <a class="comment-reply" href="#"><i class="icon-reply"></i>Reply</a> 
-				                            </div>
-				                            <div class="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravida odio, sit amet suscipit risus ultrices eu. Fusce viverra neque at purus laoreet consequat. Vivamus vulputate posuere nisl quis consequat.</p>
-				                            </div>
-				                        </div>
-				                    </div>
-					            </li>
+
 					        </ul><!-- End children -->
+						@endforeach
+
 					    </li>
+					@endforeach
+					    
+					</ol><!-- End commentlist -->
+				</div><!-- End page-content -->
+
+{{-- KOMETARR PERTANYAAN--}}
+				<div id="commentlist" class="page-content">
+
+					<div class="boxedtitle page-title"><h2>List Comment Question ( <span class="color">{{count($pertanyaan->komentar)}}</span> )</h2></div>
+					<ol class="commentlist clearfix">
+
+					@foreach($pertanyaan->komentar as $komentar)
 					    <li class="comment">
-					        <div class="comment-body clearfix"> 
-					            <div class="avatar"><img alt="" src="../ask-me/images/demo/avatar.png"></div>
+					        <div class="comment-body comment-body-answered clearfix"> 
+					            <div class="avatar"><img alt="" src="../ask-me/images/demo/admin.jpg"></div>
 					            <div class="comment-text">
 					                <div class="author clearfix">
-					                	<div class="comment-author"><a href="#">2code</a></div>
-					                	<div class="comment-vote">
-					                    	<ul class="question-vote">
-					                    		<li><a href="#" class="question-vote-up" title="Like"></a></li>
-					                    		<li><a href="#" class="question-vote-down" title="Dislike"></a></li>
-					                    	</ul>
-					                	</div>
-					                	<span class="question-vote-result">+1</span>
+					                	<div class="comment-author"><a href="#">{{$komentar->user->name}}</a></div>
+					                	
 					                	<div class="comment-meta">
-					                        <div class="date"><i class="icon-time"></i>January 15 , 2014 at 10:00 pm</div> 
+					                        <div class="date"><i class="icon-time"></i>{{$komentar->created_at->format('d, M Y H:i')}} | <a href="/komentar-pertanyaan/{{$komentar->id}}/edit"><i class="icon-edit"></i>Edit</a> |
+					                        	@if($komentar->user->id == Auth::user()->id)
+								                <form action="/komentar-pertanyaan/{{$komentar->id}}" method="post" style="display: inline;">
+										            @csrf
+										            @method('DELETE') 
+										            <button type="submit">Delete</button>
+										         </form>
+										         @else
+										         @endif
+					                        </div> 
 					                    </div>
-					                    <a class="comment-reply" href="#"><i class="icon-reply"></i>Reply</a> 
 					                </div>
-					                <div class="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravida odio, sit amet suscipit risus ultrices eu. Fusce viverra neque at purus laoreet consequat. Vivamus vulputate posuere nisl quis consequat.</p>
+					                <div class="text"><p>{{$komentar->isi}}</p>
 					                </div>
+
 					            </div>
+
 					        </div>
+
+					        
 					    </li>
+					@endforeach
+					    
 					</ol><!-- End commentlist -->
 				</div><!-- End page-content -->
 				

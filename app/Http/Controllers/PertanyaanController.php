@@ -87,7 +87,8 @@ class PertanyaanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pertanyaan = Pertanyaan::find($id);
+        return view('pertanyaan.edit',compact('pertanyaan'));
     }
 
     /**
@@ -99,7 +100,25 @@ class PertanyaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = array(
+            'judul' => $request->judul,
+            'isi' => $request->isi
+        );
+
+        $update_pertanyaan = Pertanyaan::whereId($id)->update($data);
+
+        $tagArr = explode(',', $request->tags);
+        $tagsMulti  = [];
+        foreach($tagArr as $strTag){
+            $tagArrAssc["tag_name"] = $strTag;
+            $tagsMulti[] = $tagArrAssc;
+        }
+
+        foreach($tagsMulti as $tagCheck){
+            $tag = Tag::updateOrCreate($tagCheck);
+            $update_pertanyaan->tags()->sync($tag->id);
+        }
+        return redirect('/profile');
     }
 
     /**
@@ -110,6 +129,7 @@ class PertanyaanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Pertanyaan::find($id)->delete();
+        return back();
     }
 }

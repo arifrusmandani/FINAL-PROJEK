@@ -27,17 +27,20 @@
 					<div class="boxedtitle page-title"><h2>Ask Question</h2></div>
 					
 					<div class="form-style form-style-3" id="question-submit">
-						<form action="/pertanyaan" method="post">
+						<form action="/pertanyaan/{{$pertanyaan->id}}" method="post">
 							@csrf
+							@method('PUT')
 							<div class="form-inputs clearfix">
 								<p>
 									<label class="required">Question Title<span>*</span></label>
-									<input type="text" name="judul" id="question-title">
+									<input type="text" name="judul" class="form-left" value="{{$pertanyaan->judul}}">
 									<span class="form-description">Please choose an appropriate title for the question to answer it even easier .</span>
 								</p>
 								<p>
 									<label>Tags</label>
-									<input type="text" class="input" name="tags" id="question_tags" data-seperator=",">
+									
+									<input type="text" class="input" name="tags" id="question_tags" value="@foreach($pertanyaan->tags as $tag)
+									 {{$tags = $tag->tag_name}},@endforeach" data-seperator=",">
 									<span class="form-description">Please choose  suitable Keywords Ex : <span class="color">question , poll</span> .</span>
 								</p>
 	
@@ -47,7 +50,7 @@
 							<div id="form-textarea">
 								<p>
 									<label class="required">Isi<span>*</span></label>
-									<textarea id="question-details" name="isi" aria-required="true" cols="58" rows="8"></textarea>
+									<textarea id="question-details" name="isi" aria-required="true" cols="58" rows="8">{{$pertanyaan->isi}}</textarea>
 									<span class="form-description">Type the description thoroughly and in detail .</span>
 								</p>
 							</div>

@@ -59,9 +59,9 @@
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi adipiscing gravida odio, sit amet suscipit risus ultrices eu. Fusce viverra neque at purus laoreet consequat. Vivamus vulputate posuere nisl quis consequat. Donec congue commodo mi, sed commodo velit fringilla ac. Fusce placerat venenatis mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras ornare, dolor a aliquet rutrum, dolor turpis condimentum leo, a semper lacus purus in felis.</p>
 						<div class="widget widget_contact">
 							<ul>
-								<li><i class="icon-map-marker"></i>Address :<p>Ask Me Network, 33 Street, syada Zeinab, Cairo, Egypt.</p></li>
-								<li><i class="icon-phone"></i>Phone number :<p>(+2)01111011110</p></li>
-								<li><i class="icon-envelope-alt"></i>E-mail :<p>info@example.com</p></li>
+								<li><i class="icon-map-marker"></i>Address :<p>Dibawah langit, Diatas bumi bulat yang sedang berputar.</p></li>
+								<li><i class="icon-phone"></i>Phone number :<p>000000000000000</p></li>
+								<li><i class="icon-envelope-alt"></i>E-mail :<p>tanya@google.com</p></li>
 								<li>
 									<i class="icon-share"></i>Social links :
 									<p>

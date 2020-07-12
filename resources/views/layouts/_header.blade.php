@@ -9,14 +9,25 @@
 					<div class="page-content">
 						<h2>Login</h2>
 						<div class="form-style form-style-3">
-							<form>
+							<form method="POST" action="{{ route('login') }}">
+								@csrf
 								<div class="form-inputs clearfix">
 									<p class="login-text">
-										<input type="text" value="Username" onfocus="if (this.value == 'Username') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Username';}">
+										<input type="email" value="Email" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus onfocus="if (this.value == 'Username') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Username';}">
+										@error('email')
+		                                    <span class="invalid-feedback" role="alert">
+		                                        <strong>{{ $message }}</strong>
+		                                    </span>
+		                                @enderror
 										<i class="icon-user"></i>
 									</p>
 									<p class="login-password">
-										<input type="password" value="Password" onfocus="if (this.value == 'Password') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Password';}">
+										<input type="password" value="Password" class="@error('password') is-invalid @enderror" name="password" required autocomplete="current-password" onfocus="if (this.value == 'Password') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Password';}">
+										@error('password')
+		                                    <span class="invalid-feedback" role="alert">
+		                                        <strong>{{ $message }}</strong>
+		                                    </span>
+		                                @enderror
 										<i class="icon-lock"></i>
 										<a href="#">Forget</a>
 									</p>
@@ -45,23 +56,39 @@
 	<div class="panel-pop" id="signup">
 		<h2>Register Now<i class="icon-remove"></i></h2>
 		<div class="form-style form-style-3">
-			<form>
+			<form method="POST" action="{{ route('register') }}">
+              @csrf
 				<div class="form-inputs clearfix">
 					<p>
 						<label class="required">Username<span>*</span></label>
-						<input type="text">
+						<input type="text" name="name" id="name">
+						@error('name')
+                             <span class="invalid-feedback" role="alert">
+                                 <strong>{{ $message }}</strong>
+                             </span>
+                         @enderror
 					</p>
 					<p>
 						<label class="required">E-Mail<span>*</span></label>
-						<input type="email">
+						<input type="email" name="email" id="email">
+						@error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
 					</p>
 					<p>
 						<label class="required">Password<span>*</span></label>
-						<input type="password" value="">
+                        <input id="password" type="password" class=" @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+						@error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
 					</p>
 					<p>
 						<label class="required">Confirm Password<span>*</span></label>
-						<input type="password" value="">
+						<input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
 					</p>
 				</div>
 				<p class="form-submit">
@@ -98,11 +125,11 @@
 		<section class="container clearfix">
 			<nav class="header-top-nav">
 				<ul>
-					<li><a href="contact_us.html"><i class="icon-envelope"></i>Contact</a></li>
+					<li><a href="/contact_us"><i class="icon-envelope"></i>Contact</a></li>
 					<li><a href="#"><i class="icon-headphones"></i>Support</a></li>
 					@if(isset(Auth::user()->name))
-					<li><a href="#"><i class="icon-user"></i>{{Auth::user()->name}}</a></li>
-					<li><a href="/logout"><i class="icon-user"></i>Logout</a></li>
+					<li><a href="/profile"><i class="icon-user"></i>{{Auth::user()->name}}</a></li>
+					<li><a href="/logout"><i class="icon-signout"></i>Logout</a></li>
 					@else
 					<li><a href="login.html" id="login-panel"><i class="icon-user"></i>Login Area</a></li>
 					@endif
@@ -121,7 +148,7 @@
 			<div class="logo"><a href="index-2.html"><img alt="" src="images/logo.png"></a></div>
 			<nav class="navigation">
 				<ul>
-					<li class="home"><a href="/home">Home</a></li>
+					<li class="home"><a href="/">Home</a></li>
 					<li class="ask_question"><a href="/pertanyaan/create">Ask Question</a></li>
 					<!-- <li><a href="cat_question.html">Questions</a>
 						<ul>
@@ -176,7 +203,11 @@
 							<li><a href="404.html">404</a></li>
 						</ul>
 					</li> -->
+					@if(isset(Auth::user()->name))
+					<li><a href="/profile">Profile</a></li>
+					@else
 					<li><a href="/login">Login</a></li>
+					@endif
 					<li><a href="/contact_us">Contact Us</a></li>
 				</ul>
 			</nav>
