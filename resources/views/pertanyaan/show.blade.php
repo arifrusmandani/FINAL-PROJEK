@@ -223,8 +223,9 @@
 					                	<div class="comment-author"><a href="#">{{$komentar->user->name}}</a></div>
 					                	
 					                	<div class="comment-meta">
-					                        <div class="date"><i class="icon-time"></i>{{$komentar->created_at->format('d, M Y H:i')}} | <a href="/komentar-pertanyaan/{{$komentar->id}}/edit"><i class="icon-edit"></i>Edit</a> |
+					                        <div class="date"><i class="icon-time"></i>{{$komentar->created_at->format('d, M Y H:i')}} | 
 					                        	@if($komentar->user->id == Auth::user()->id)
+					                        	<a href="/komentar-pertanyaan/{{$komentar->id}}/edit"><i class="icon-edit"></i>Edit</a> | 
 								                <form action="/komentar-pertanyaan/{{$komentar->id}}" method="post" style="display: inline;">
 										            @csrf
 										            @method('DELETE') 
